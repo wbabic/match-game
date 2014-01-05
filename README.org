@@ -1,0 +1,98 @@
+* async-play
+
+  A Clojure library designed to ... explore the core.async library and clojurescript
+
+** Usage
+
+   M-x nrepl-jack-in
+
+   Clojurescript REPL connected to a browser:
+
+   from this thread:
+   https://groups.google.com/forum/#!topic/clojure/6H-hooiAW3I
+
+   with reference to this tutorial:
+   modern-cljs clojurescript tutorial
+   https://github.com/magomimmo/modern-cljs/blob/master/doc/tutorial-02.md
+
+   #+BEGIN_SRC clojure
+  (do
+    (require 'cljs.repl.browser)
+    (cemerick.piggieback/cljs-repl
+     :repl-env
+     (doto (cljs.repl.browser/repl-env :port 9000)
+       cljs.repl/-setup)))
+    #+END_SRC
+
+   piggieback
+   https://github.com/cemerick/piggieback
+   nREPL middleware that enables the bootstrap of a ClojureScript REPL
+   on top of an nREPL session.
+   [com.cemerick/piggieback "0.0.5"]
+
+   (js/alert "I'm ready!")
+
+   cljs-build 
+   :plugins [[lein-cljsbuild "0.3.2"]]
+
+   lein cljsbuild once
+   lein trampoline cljsbuild repl-listen
+
+   > (js/alert "Hello from a browser connected repl")
+
+
+   start simple server:
+   $ cd resources/public
+   $ python -m SimpleHTTPServer 8888
+
+   http://localhost:8888/hello.html
+   
+   start cljs auto build:
+   lein cljsbuild auto
+
+   start up brepl:
+   lein trampoline cljsbuild repl-listen
+
+   > (in-ns 'async-play.web.play)
+   > @vertices
+   > (sigma)
+   > (position :v1 square)
+
+   connect to repl from emacs:
+   M-x nrepl-jack-in
+   
+** reources
+*** core.aync
+    https://github.com/clojure/core.async
+    https://github.com/swannodette/async-tests
+    http://dimagog.github.io/blog/clojure/clojurescript/2013/07/12/making-http-requests-from-clojurescript-with-core.async/
+    https://github.com/Dimagog/AsyncGET
+    http://tech.puredanger.com/2013/07/10/rps-core-async/
+    http://rigsomelight.com/2013/07/18/clojurescript-core-async-todos.html
+
+*** cljs
+    https://github.com/magomimmo/modern-cljs/blob/master/doc/tutorial-02.md
+    https://groups.google.com/forum/#!topic/clojure/6H-hooiAW3I
+    http://himera.herokuapp.com/synonym.html
+    http://himera.herokuapp.com/index.html
+
+*** canvas
+    http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/HTML-canvas-guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010542-CH1-SW1
+    http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-regular-polygon-tutorial/
+    http://fabricjs.com/controls/
+    https://developer.mozilla.org/en-US/docs/Web/CSS/color_value#rgba()
+    https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Basic_animations
+    
+*** others
+    http://d3js.org/
+    https://github.com/mbostock/d3
+    https://github.com/learnboost/node-canvas
+    http://www.aerotwist.com/tutorials/getting-started-with-three-js/
+    http://bower.io/
+    https://github.com/dribnet/strokes
+    
+** License
+
+Copyright © 2013 FIXME
+
+Distributed under the Eclipse Public License, the same as Clojure.
