@@ -1,4 +1,4 @@
-* async-play
+* Match Game
   A clojurescript webapp to exercise core.async library by sending
   keyborad events to an input channel.
 
@@ -9,21 +9,28 @@
 
 ** Usage
 *** cljs
+    #+BEGIN_SRC shell
     lein cljsbuild once
     lein cljsbuild auto
+    #+END_SRC
 
 *** clojure repl
-    M-x cider-jack-in
+    From within Eamcs, M-x cider-jack-in.
 
 *** browser repl
-    > (in-ns 'async-play.web.play)
-   > @vertices
-   > (sigma)
-   > (position :v1 square)
+    #+BEGIN_SRC clojure
+    (in-ns 'async-play.web.play)
+    @vertices
+    (sigma)
+    (position :v1 square)
+    #+END_SRC
 
 
-**** cljsbuile
-    lein trampoline cljsbuild repl-listen
+**** cljsbuild
+     #+BEGIN_SRC shell
+     lein trampoline cljsbuild repl-listen
+     #+END_SRC
+     
 **** piggieback
 
    #+BEGIN_SRC clojure
@@ -37,13 +44,14 @@
 
    
    https://github.com/cemerick/piggieback
+
    nREPL middleware that enables the bootstrap of a ClojureScript REPL
    on top of an nREPL session.
    [com.cemerick/piggieback "0.0.5"]
 
-   (js/alert "I'm ready!")
-
-   > (js/alert "Hello from a browser connected repl")
+   #+BEGIN_SRC clojure
+   (js/alert "Hello from a browser connected repl")
+   #+END_SRC
 
 *** web server
    start simple server:
