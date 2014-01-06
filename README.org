@@ -3,6 +3,7 @@
   keyborad events to an input channel while also allowing sending
   commands from a browser connected repl.
 
+  For demo see: http://wbabic.github.io/match-game/
 ** Overview
    Use an event stream input channel to transform a source object to
    match a target object. Events can come from browser as well as from
