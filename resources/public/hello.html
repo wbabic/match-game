@@ -8,10 +8,13 @@
   <![endif]-->
 </head>
 <body>
-  <div>
-    <p>Type 'n' for new game, 'p' (for pho) to transform Source by 4-fold rotation, 's' (for
-    sigma) to reflect Source. Try to match Source with Target. Type 'm' for
-    match. If correct, get new Target. See output in browser console.</p>
+  <div id="instructions">
+    <ul>
+      <li>n for new game</li>
+      <li>p (pho) for 4-fold rotation</li>
+      <li>s (sigma) for reflection in x-axis</li>
+      <li>m to match</li>
+    </ul>
   </div>
   <div>
     <canvas id="tri-canvas" width="500" height="500">
@@ -21,6 +24,9 @@
       <h2>Canvas not supported!</h2>
     </canvas>
 
+  </div>
+  <div id="results">
+    
   </div>
   <!-- pointing to cljsbuild generated js file -->
   <script src="js/hello.js"></script>
