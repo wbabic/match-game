@@ -12,7 +12,8 @@
 ** Usage
 *** cljs
     #+BEGIN_SRC shell
-    lein cljsbuild auto
+    lein cljsbuild auto dev
+    lein cljsbuild once advanced
     #+END_SRC
 
 *** clojure repl
@@ -35,21 +36,20 @@
      see https://github.com/emezeske/lein-cljsbuild
      
 **** using piggieback
+     from a clojure repl
+    
      #+BEGIN_SRC clojure
-     (do
-       (require 'cljs.repl.browser)
-       (cemerick.piggieback/cljs-repl
-       :repl-env
-       (doto (cljs.repl.browser/repl-env :port 9000)
-         cljs.repl/-setup)))
+     user=> (require 'cljs.repl.browser)
+     user=> (cemerick.piggieback/cljs-repl :repl-env (cljs.repl.browser/repl-env :port 9000))
+     #+END_SRC
+
+     from the browser repl:
+     #+BEGIN_SRC clojre
+     cljs.user=> (.log js/console "hello")
+     cljs.user=> (js/alert "Hello from a browser connected repl")
      #+END_SRC
 
      see https://github.com/cemerick/piggieback
-
-     from the browser repl:
-     #+BEGIN_SRC clojure
-     (js/alert "Hello from a browser connected repl")
-     #+END_SRC
 
 *** web server
 **** simple server

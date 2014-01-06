@@ -1,5 +1,5 @@
 (defproject async-play "0.1.0-SNAPSHOT"
-  :description "FIXME: write description"
+  :description "core.async play"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -14,10 +14,18 @@
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
   :cljsbuild
   {:builds
-   [{:source-paths ["src/async_play/web"]
-     :compiler {:output-to "resources/public/js/hello.js"
-                :optimizations :whitespace
-                :pretty-print true}}]}
+   [{:id "dev"
+     :source-paths ["src/async_play/web"
+                    "src/async_play/dev"]
+     :compiler {:optimizations :whitespace
+                :pretty-print false
+                :output-to "resources/public/js/hello.js"}}
+    {:id "advanced"
+     :source-paths ["src/async_play/web"]
+     :compiler {:optimizations :advanced
+                :pretty-print false
+                :output-to "resources/public/js/hello-advanced.js"
+                :output-wrapper true}}]}
   :profiles {:dev {:source-paths ["dev"]
                    :dependencies [[org.clojure/tools.namespace "0.2.4"]
                                   [org.clojure/java.classpath "0.2.0"]]}})
