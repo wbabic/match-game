@@ -1,22 +1,25 @@
 * Match Game
   A clojurescript webapp to exercise core.async library by sending
-  keyborad events to an input channel.
+  keyborad events to an input channel while also allowing sending
+  commands from a browser connected repl.
 
 ** Overview
    Use an event stream input channel to transform a source object to
    match a target object. Events can come from browser as well as from
-   a browser connected repl.
+   a browser connected repl. Events are transformed into commands to
+   separate GUI events from the application.
 
 ** Usage
 *** cljs
     #+BEGIN_SRC shell
-    lein cljsbuild once
     lein cljsbuild auto
     #+END_SRC
 
 *** clojure repl
     From within Eamcs, M-x cider-jack-in.
-
+    see https://github.com/clojure-emacs/cider 
+    (formerly nrepl.el)
+    
 *** browser repl
     #+BEGIN_SRC clojure
     (in-ns 'async-play.web.play)
@@ -25,41 +28,39 @@
     (position :v1 square)
     #+END_SRC
 
-
-**** cljsbuild
+**** using cljsbuild 
      #+BEGIN_SRC shell
      lein trampoline cljsbuild repl-listen
      #+END_SRC
+     see https://github.com/emezeske/lein-cljsbuild
      
-**** piggieback
+**** using piggieback
+     #+BEGIN_SRC clojure
+     (do
+       (require 'cljs.repl.browser)
+       (cemerick.piggieback/cljs-repl
+       :repl-env
+       (doto (cljs.repl.browser/repl-env :port 9000)
+         cljs.repl/-setup)))
+     #+END_SRC
 
-   #+BEGIN_SRC clojure
-  (do
-    (require 'cljs.repl.browser)
-    (cemerick.piggieback/cljs-repl
-     :repl-env
-     (doto (cljs.repl.browser/repl-env :port 9000)
-       cljs.repl/-setup)))
-    #+END_SRC
+     see https://github.com/cemerick/piggieback
 
-   
-   https://github.com/cemerick/piggieback
-
-   nREPL middleware that enables the bootstrap of a ClojureScript REPL
-   on top of an nREPL session.
-   [com.cemerick/piggieback "0.0.5"]
-
-   #+BEGIN_SRC clojure
-   (js/alert "Hello from a browser connected repl")
-   #+END_SRC
+     from the browser repl:
+     #+BEGIN_SRC clojure
+     (js/alert "Hello from a browser connected repl")
+     #+END_SRC
 
 *** web server
-   start simple server:
-   $ cd resources/public
-   $ python -m SimpleHTTPServer 8888
+**** simple server
+     start simple server from shell:
+     #+BEGIN_SRC shell
+     $ cd resources/public
+     $ python -m SimpleHTTPServer 8888
+     #+END_SRC
 
-   http://localhost:8888/hello.html
-   
+     then go to: http://localhost:8888/hello.html
+**** TODO clojure server   
 ** Resources
 *** core.aync
     - https://github.com/clojure/core.async
@@ -72,9 +73,7 @@
 *** cljs
     - https://github.com/magomimmo/modern-cljs/blob/master/doc/tutorial-02.md
     - https://groups.google.com/forum/#!topic/clojure/6H-hooiAW3I
-    - http://himera.herokuapp.com/synonym.html
-    - http://himera.herokuapp.com/index.html
-
+      
 *** canvas
     - http://developer.apple.com/library/safari/#documentation/AudioVideo/Conceptual/HTML-canvas-guide/Introduction/Introduction.html#//apple_ref/doc/uid/TP40010542-CH1-SW1
     - http://www.html5canvastutorials.com/kineticjs/html5-canvas-kineticjs-regular-polygon-tutorial/

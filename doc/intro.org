@@ -1,3 +1,55 @@
-# Introduction to async-play
+* Introduction  to async-play
+** keyboard and repl input channel
+   #+BEGIN_SRC clojure
+     (ns async-play.web.match
+       (:require [cljs.core.async :as async :refer [chan <! >! put! alts! close!]])
+       (:require-macros
+        [cljs.core.async.macros :refer [go alt!]]))
+     
+     (defn event-chan
+       [type]
+       (let [c (chan)]
+         (.addEventListener js/window type #(put! c %))
+         c))
+     
+     (defn keycode->command []
+       (fn [e]
+         (let [key (.-keyCode e)
+               command (case key
+                         80 :rho
+                         83 :sigma
+                         77 :match
+                         78 :new
+                         :unknown)]
+           command)))
+     
+     (defn map-chan [f in]
+       (let [c (chan)]
+         (go (loop []
+               (if-let [v (<! in)]
+                 (do (>! c (f v))
+                     (recur))
+                 (close! c))))
+         c))
+     
+     (defn key-input-channel []
+       (map-chan (keycode->command) (event-chan "keyup")))
+     
+     (def repl-in (chan))
+          
+     (defn inputs []
+       (utils/merge-chans
+        repl-in
+        (utils/filter-chan #{:rho :sigma :match :new} (key-input-channel))
+        ))
+               
+     (def target-in (target-stream (cycle target-sequence)))
+               
+     (app-loop {:source square} target-in (inputs))
 
-TODO: write [great documentation](http://jacobian.org/writing/great-documentation/what-to-write/)
+     ;; from the repl               
+     (go (>! repl-in :new))
+     (go (>! repl-in :rho))
+     (go (>! repl-in :sigma))
+     (go (>! repl-in :match))
+   #+END_SRC
